@@ -1,0 +1,69 @@
+vue简介.txt
+学习Vue.js时请先抛开手动操作DOM的思维，因为Vue.js是数据驱动的，你无需手动操作DOM。它通过一些特殊的HTML语法，将DOM和数据绑定起来。一旦你创建了绑定，DOM将和数据保持同步，每当变更了数据，DOM也会相应地更新。
+当然了，在使用Vue.js时，你也可以结合其他库一起使用，比如jQuery。
+MVVM模式 
+ViewModel是Vue.js的核心，它是一个Vue实例。Vue实例是作用于某一个HTML元素上的，这个元素可以是HTML的body元素，也可以是指定了id的某个元素。
+  // 创建一个 Vue 实例或 "ViewModel"
+        // 它连接 View 与 Model
+        new Vue({
+            el: '#app',
+            data: exampleData,
+            methods: {},//方法  以对性的形式存在
+            filters: {},
+            components: {
+ 			"my-component3"
+ 		},
+ 		
+
+            
+        })
+Vue.js 的核心是一个允许采用简洁的模板语法来声明式的将数据渲染进 DOM：
+你看到的 v-bind 属性被称为指令。指令带有前缀 v-，以表示它们是 Vue 提供的特殊属性。
+文本插值方式  	{{name}}
+绑定 DOM 元素属性 
+bind 绑定 只要使用变量都需要用bind往上绑
+v-bind:attrName=var; 
+v-bind:属性名=变量
+注意：v-bind:id="'id'";如果里面是单引号的就真的变成字符串了
+:attrName 是v-bind:attrName的缩写形式；
+v-if  表示判断，对应布尔类型属性值变量；
+v-else v-if 不成立时执行；
+vm中所有的变量都会声明在vm实例中;
+v-if相当于ng-if;表判断
+v-else必须紧邻v-if，v-show;
+2.1版本增加v-else-if  模仿js (if-else)
+app3.seen = true
+app3.seen = false;
+我们不仅可以绑定 DOM 文本到数据，也可以绑定 DOM 结构到数据。而且，Vue 也提供一个强大的过渡效果系统，可以在 Vue 插入/更新/删除元素时自动应用过渡效果。
+ v-for 循环 v-for 指令可以绑定数组的数据来渲染一个项目列表：
+<li v-for="x in todos">
+				{{x.text}}
+			</li>
+在控制台里，输入 app.todos.push({ text: '新项目' })，你会发现列表中添加了一个新项。
+循环：
+<li v-for="x in array">{{x}}</li>
+<li v-for="x of array">{{x}}</li>
+<li v-for="(x,key,i) in person" :key=x.name>
+ x是值 key是键，i是索引  :key=x.name;处理复杂的数据对象时，添加key.便于跟踪 ;
+ vuez中声明的方法是在methods:{};配置项中，键值对的形式存在函数方法；在调使用的时候，使用事件驱动；
+ v-on="方法名"  我们可以用 v-on 指令绑定一个事件监听器，通过它调用我们 Vue 实例中定义的方法：
+ 调用方法名 方法声明在实例的配置项中
+ <button v-on:click = "reserver">逆转消息</button>
+ 简写方式：@click="reserver()"；注意加不加小括号都能调用此函数，为规范还是加吧；
+ @click ===v-on:click  绑定事件缩写形式
+  v-model 双向数据绑定
+ Vue 还提供了 v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。
+ @keydown.enter 键盘修饰符
+ @keydown.enter.up.down.right.left.tab.space.esc.delete=
+ @click.stop 此修饰符专门用来阻止事件冒泡的；
+ e.stopPropagetion()主流浏览器；
+ e.caselBubble=true;Ie专属；
+
+ @click.prevent 阻止默认事件
+ e.pereventDefault(); 主流
+ return false; 兼容写法
+ 修饰符：
+ stop
+ prevent
+ capture 捕获模式
+ self 自身触发

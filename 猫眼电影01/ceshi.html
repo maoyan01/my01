@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slot.html</title>
+	<style type="text/css">
+	/*代表该路由被激活时的样式*/
+	.route-link-active{ 
+		color:red;
+		font-size:60px;
+	}
+	/*a{
+		color:blue;
+	}*/
+
+	</style>
+</head>
+<body>
+	<div class="box">
+	<!-- 渲染路径匹配到的视图组件 -->
+		<router-view></router-view>
+		<!-- 将来会渲染成a 样式聚按照a标签的来；  通过to 属性实现跳转 -->
+		<router-link to="/home/vip">主页 </router-link>
+		<router-link to="/mine">个人中心 </router-link>
+		<a href="">犯嘀咕</a>
+
+	</div>
+</body>
+<script type="text/javascript" src="./vue2.0.js"></script>
+<script type="text/javascript" src="./vue-router-2.0.js"></script>
+<script type="text/javascript">
+/*
+vue路由会渲染组件，但不会冲新触发组件，可以用监听$route;
+<router-view> 组件是一个 functional 组件，渲染路径匹配到的视图组件。<router-view> 渲染的组件还可以内嵌自己的 <router-view>，根据嵌套路径，渲染嵌套组件。
+
+*/ var routes = [{
+	path: "/home/:isLogin",//动态路由匹配 不能匹配/home 匹配 /home/*
+	component: {
+		template: "<h1>主页</h1>",
+		mounted: function(){
+			console.log("挂载",this.$route.params);
+		}
+	},
+	watch:{
+		"$route": function(to, from){
+			console.log(to,from);
+
+		}
+	}
+
+},
+{
+	path: "/mine",
+	component: {
+		template: `
+				<div>
+					<h1>个人中心</h1>
+					<router-view></router-view>
+					<router-link to="/mine/zs"> 登录</router-link>
+				</div>
+		`
+	},
+	children: [{
+			path: "zs",
+			component:{
+				template: '<h4>张三登录</h4>'
+			}
+		}]
+}];
+		
+
+
+var router = new VueRouter({
+	routes: routes
+
+})
+	var vm = new Vue({
+		el: ".box",
+		router : router,
+		data:{
+			
+		}
+		
+	})
+		
+		
+</script>
+</html>
